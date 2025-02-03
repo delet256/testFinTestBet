@@ -18,20 +18,17 @@ namespace TestTask.Controllers
         [HttpPost("save")]
         public async Task<IActionResult> SaveData([FromBody] IEnumerable<Dictionary<int, string>> data)
         {
-            var request = JsonSerializer.Serialize(data);
             await _dataService.SaveDataAsync(data);
-            var response = JsonSerializer.Serialize(new { Message = "Data saved successfully" });
 
-            return Ok(response);
+            return Ok(new { Message = "Data saved successfully" });
         }
 
         [HttpGet("get")]
         public async Task<IActionResult> GetData([FromQuery] int? codeFilter = null)
         {
             var data = await _dataService.GetDataAsync(codeFilter);
-            var response = JsonSerializer.Serialize(data);
 
-            return Ok(response);
+            return Ok(data);
         }
     }
 }
